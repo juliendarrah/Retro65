@@ -1,0 +1,73 @@
+Modules list:
+-------------
+test.o:
+    CODE              Offs=000000  Size=000000  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=000000  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000000  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000001  Align=00001  Fill=0000
+    ZEROPAGE          Offs=000000  Size=000000  Align=00001  Fill=0000
+    NULL              Offs=000000  Size=000000  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=00001F  Align=00001  Fill=0000
+    VECTORS           Offs=000000  Size=000006  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+NULL                  000000  000000  000000  00001
+ZEROPAGE              000000  000000  000000  00001
+DATA                  000300  000300  000001  00001
+BSS                   000301  000301  000000  00001
+STARTUP               00E000  00E01E  00001F  00001
+CODE                  00E01F  00E01F  000000  00001
+RODATA                00E01F  00E01F  000000  00001
+VECTORS               00FFFA  00FFFF  000006  00001
+
+
+Exports list by name:
+---------------------
+__BSS_LOAD__              000301  LA    __BSS_RUN__               000301  LA    
+__BSS_SIZE__              000000  EA    __CODE_LOAD__             00E01F  LA    
+__CODE_RUN__              00E01F  LA    __CODE_SIZE__             000000  EA    
+__DATA_LOAD__             00E01F  LA    __DATA_RUN__              000300  LA    
+__DATA_SIZE__             000001  EA    __RODATA_LOAD__           00E01F  LA    
+__RODATA_RUN__            00E01F  LA    __RODATA_SIZE__           000000  EA    
+__STACK_SIZE__            000100  EA    __STACK_START__           000100  EA    
+__STARTUP_LOAD__          00E000  LA    __STARTUP_RUN__           00E000  LA    
+__STARTUP_SIZE__          00001F  EA    
+
+
+Exports list by value:
+----------------------
+__BSS_SIZE__              000000  EA    __CODE_SIZE__             000000  EA    
+__RODATA_SIZE__           000000  EA    __DATA_SIZE__             000001  EA    
+__STARTUP_SIZE__          00001F  EA    __STACK_SIZE__            000100  EA    
+__STACK_START__           000100  EA    __DATA_RUN__              000300  LA    
+__BSS_LOAD__              000301  LA    __BSS_RUN__               000301  LA    
+__STARTUP_LOAD__          00E000  LA    __STARTUP_RUN__           00E000  LA    
+__CODE_LOAD__             00E01F  LA    __CODE_RUN__              00E01F  LA    
+__DATA_LOAD__             00E01F  LA    __RODATA_LOAD__           00E01F  LA    
+__RODATA_RUN__            00E01F  LA    
+
+
+Imports list:
+-------------
+__BSS_LOAD__ ([linker generated]):
+__BSS_RUN__ ([linker generated]):
+__BSS_SIZE__ ([linker generated]):
+__CODE_LOAD__ ([linker generated]):
+__CODE_RUN__ ([linker generated]):
+__CODE_SIZE__ ([linker generated]):
+__DATA_LOAD__ ([linker generated]):
+__DATA_RUN__ ([linker generated]):
+__DATA_SIZE__ ([linker generated]):
+__RODATA_LOAD__ ([linker generated]):
+__RODATA_RUN__ ([linker generated]):
+__RODATA_SIZE__ ([linker generated]):
+__STACK_SIZE__ ([linker generated]):
+__STACK_START__ ([linker generated]):
+__STARTUP_LOAD__ ([linker generated]):
+__STARTUP_RUN__ ([linker generated]):
+__STARTUP_SIZE__ ([linker generated]):
+

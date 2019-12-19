@@ -1,0 +1,81 @@
+ca65 V2.18 - Git 5da525e0
+Main file   : test.s
+Current file: test.s
+
+000000r 1               ; Experiment 1
+000000r 1               ;
+000000r 1               ; Toggle the port A output lines
+000000r 1               ; With 2MHz clock,  1 cycle is two iterations of the loop (2 * 10)
+000000r 1               ; 2000000 / 20 = 100 kHz on PA0 line.
+000000r 1               ; Could do this in 9 cycles but want a round number.
+000000r 1               ; PA1 is 50 kHz, PA2 is 25 kHz etc.
+000000r 1               
+000000r 1               
+000000r 1               .include "6522.inc"
+000000r 2               ; 6522 Chip registers
+000000r 2                       PORTB = $8000
+000000r 2                       PORTA = $8001
+000000r 2                       DDRB  = $8002
+000000r 2                       DDRA  = $8003
+000000r 2               	T1CL  = $8004
+000000r 2                       T1CH  = $8005
+000000r 2                       T1LL  = $8006
+000000r 2                       T1LH  = $8007
+000000r 2                       T2LL  = $8008
+000000r 2                       T2CL  = $8008
+000000r 2                       T2CH  = $8009
+000000r 2                       SR    = $800A
+000000r 2                       ACR   = $800B
+000000r 2                       PCR   = $800C
+000000r 2                       IFR   = $800D
+000000r 2                       IER   = $800E
+000000r 2                       ORAX  = $800F
+000000r 2               
+000000r 1               
+000000r 1               .segment "DATA"
+000000r 1               
+000000r 1  xx           Data1: .res 1
+000001r 1               
+000001r 1               .segment "STARTUP"
+000000r 1               
+000000r 1  A9 FF        START:  LDA #%11111111 ; Set port A to all outputs
+000002r 1  8D 03 80             STA DDRA
+000005r 1               ;  Increment output to toggle all bits
+000005r 1  B8                   CLV
+000006r 1  A2 00                LDX #$00
+000008r 1  8E 01 80             STX PORTA
+00000Br 1  FE 01 80     Loop:   INC PORTA,X	; 7 cycles
+00000Er 1               
+00000Er 1  A9 FF        		LDA #$FF		; 2 cycles
+000010r 1  8D rr rr     		STA Data1
+000013r 1  CE rr rr     InLoop:	DEC Data1		; 2 cycles
+000016r 1               
+000016r 1  EA           		NOP			; 2 cycles
+000017r 1  EA           		NOP			; 2 cycles
+000018r 1  EA           		NOP			; 2 cycles
+000019r 1  EA           		NOP			; 2 cycles
+00001Ar 1  EA           		NOP			; 2 cycles
+00001Br 1               
+00001Br 1               		;NOP			; 2 cycles
+00001Br 1               		;NOP			; 2 cycles
+00001Br 1               		;NOP			; 2 cycles
+00001Br 1               		;NOP			; 2 cycles
+00001Br 1               		;NOP			; 2 cycles
+00001Br 1               
+00001Br 1  D0 F6        		BNE InLoop	; 3 cycles
+00001Dr 1               
+00001Dr 1  50 EC                BVC Loop	; 3 cycles
+00001Fr 1               
+00001Fr 1               
+00001Fr 1               .segment "RODATA"
+000000r 1               
+000000r 1               
+000000r 1               .segment "VECTORS"
+000000r 1               
+000000r 1               ; set interrupt vectors to point to handlers
+000000r 1  00 0F        .word $0F00   ;$fffa NMI
+000002r 1  rr rr        .word START ;$fffc Reset
+000004r 1  00 00        .word $0000   ;$fffe IRQ
+000006r 1               
+000006r 1               
+000006r 1               
